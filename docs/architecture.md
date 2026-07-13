@@ -28,10 +28,12 @@ Sekke enables **offline digital coins** pegged 1:1 to IRR that behave like physi
   - Upon sync, excess automatically transfers to the user's **online account** (linked bank-like balance).
   - **Scheduled auto-cash-out**: Online account can be configured to auto-transfer to Shetab-linked bank card (e.g., daily at 04:00 AM).
   - This is critical for high-volume receivers like taxi drivers.
-- **Token Lifecycle**:
-  - Tokens **freeze** (cannot be spent) if not synced past the deadline, but **do not die/expire**.
-  - Protects user assets during connectivity issues or exceptional cases.
-  - Once synced and validated, tokens are refreshed and unfrozen.
+- **Token Lifecycle (Hybrid Chain of Spending)**:
+  - Received tokens are immediately spendable (cash-like UX).
+  - Marked as "pending confirmation" until relevant syncs occur.
+  - Backend uses provisional chain acceptance + grace period (48-72h) for delayed nodes.
+  - Tokens may be frozen only for affected downstream users if orphaned chains are not resolved.
+  - Strong protection for honest users via issuer guarantee.
 - **Anonymous Wallets**:
   - Allowed with **max 5 coins** limit.
   - Must sync **at least twice per day**.
@@ -136,9 +138,11 @@ Sekke enables **offline digital coins** pegged 1:1 to IRR that behave like physi
 ## 6. Non-Functional Requirements
 - **Performance**: Sync should handle thousands of daily transactions per user efficiently.
 - **Reliability**: Offline-first; graceful degradation.
-- **Security**: Issuer guarantee + economic incentives.
+- **Security**: Issuer guarantee + economic incentives. Hybrid reconciliation manages orphaned chains via grace periods and selective freezing.
 - **Compliance**: Data in Iran, tiered AML, sandbox first.
 - **Scalability**: Designed with billions of txns in mind from the start.
+
+**Operational Risk Note**: The hybrid approach carries a potential risk of accumulated orphaned chains increasing financial exposure. This must be actively managed through operational monitoring, user incentives for timely syncing, rate limits on high-velocity tokens, and timely intervention on problematic chains.
 
 ---
 
