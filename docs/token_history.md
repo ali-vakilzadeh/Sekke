@@ -14,19 +14,20 @@ This document traces the full lifecycle of a single digital coin from issuance t
 
 3. **Offline Transfer (First Hop)**  
    Payer generates a signed proof of ownership and transfers via QR.  
-   Receiver’s app verifies the proof and accepts the token.  
-   Token ownership is updated locally on both devices.
+   Receiver’s app verifies the proof and accepts the token immediately into the spendable balance (hybrid model).  
+   Token ownership is updated locally on both devices. The coin is marked as "pending server confirmation".
 
 4. **Multiple Offline Hops**  
-   Token circulates phone-to-phone (bazaar, taxi, etc.) through successive QR transfers. Each device maintains local record of the transfer.
+   Token circulates phone-to-phone (bazaar, taxi, etc.) through successive QR transfers. Each device maintains local record of the transfer. Downstream receivers can spend the token further even while previous hops are pending confirmation.
 
 5. **Periodic Sync**  
-   All devices involved sync with the backend.  
+   Devices sync with the backend.  
    - Transaction proofs are uploaded.  
-   - Backend reconciles the full ownership chain.  
+   - Backend reconciles the ownership chain (provisional acceptance for partial chains).  
    - Validates no double-spend.  
-   - Refreshes the token (new signature) and returns it to circulation.  
-   - Any freeze (due to missed sync) is lifted upon successful validation.
+   - Applies grace period for delayed nodes (e.g. 48-72 hours).  
+   - Refreshes the token and updates status.  
+   - Tokens may be frozen only for affected downstream users if gaps remain unresolved.
 
 6. **Overflow Handling (if applicable)**  
    If token causes a wallet to exceed limit upon receipt, it is flagged and moved to the user’s online account during sync.
