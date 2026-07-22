@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>گزارش بسیج منابع سکه</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D1319;
+    --bg-panel:#151D26;
+    --bg-panel-2:#1B2530;
+    --silver:#B7C0CA;
+    --silver-dim:#77828D;
+    --white:#F2F5F8;
+    --blue:#2E6FA6;
+    --blue-bright:#5B9BD9;
+    --blue-deep:#1C3A55;
+    --rule:#28323D;
+    --urgent:#C0553F;
+    --soon:#C4903F;
+    --later:#3F8F73;
+    --card:#12191F;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Vazirmatn',sans-serif;
+    direction:rtl;
+    background:var(--bg);
+    color:var(--white);
+    line-height:1.95;
+    font-size:17px;
+  }
+  .ltr{direction:ltr; unicode-bidi:isolate;}
+  a{color:var(--blue-bright);}
+  strong{font-weight:700; color:var(--white);}
+
+  /* ===== Cover ===== */
+  .cover{
+    position:relative;
+    padding:66px 32px 50px;
+    background:
+      radial-gradient(1000px 380px at 20% -15%, rgba(46,111,166,0.28), transparent 60%),
+      linear-gradient(180deg, #0F171F, var(--bg));
+    border-bottom:1px solid var(--rule);
+    overflow:hidden;
+  }
+  .cover::before{
+    content:"";
+    position:absolute; top:0; right:0; bottom:0; width:8px;
+    background:linear-gradient(180deg, var(--blue-bright), var(--blue-deep));
+  }
+  .cover::after{
+    content:"";
+    position:absolute; left:-120px; bottom:-140px; width:340px; height:340px;
+    border-radius:50%;
+    border:1px solid rgba(183,192,202,0.12);
+    box-shadow:0 0 0 60px rgba(183,192,202,0.03) inset;
+  }
+  .cover-inner{max-width:900px; margin:0 auto; position:relative; z-index:1;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; letter-spacing:0.05em; font-weight:700;
+    color:var(--blue-bright);
+    background:rgba(46,111,166,0.16);
+    border:1px solid rgba(91,155,217,0.35);
+    padding:6px 14px; border-radius:100px; margin-bottom:22px;
+  }
+  h1.title{font-size:42px; font-weight:900; margin:0 0 8px; line-height:1.3; color:var(--white);}
+  .subtitle{font-size:18.5px; color:var(--silver); font-weight:500; margin:0 0 30px;}
+  .meta-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:16px; margin-top:24px; padding-top:24px; border-top:1px solid var(--rule);
+  }
+  .meta-item .k{font-size:12.5px; color:var(--silver-dim); margin-bottom:4px; font-weight:600;}
+  .meta-item .v{font-size:15.5px; font-weight:700; color:var(--white);}
+
+  /* ===== TOC ===== */
+  .toc{max-width:900px; margin:40px auto; padding:0 32px;}
+  .toc h2{font-size:13px; letter-spacing:0.06em; color:var(--silver-dim); font-weight:700; margin-bottom:14px;}
+  .toc-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:6px 24px; background:var(--bg-panel); border:1px solid var(--rule);
+    border-radius:14px; padding:18px 22px;
+  }
+  .toc-grid a{
+    display:flex; gap:10px; align-items:baseline; text-decoration:none;
+    color:var(--silver); font-size:14.5px; padding:7px 0;
+    border-bottom:1px dashed transparent;
+  }
+  .toc-grid a:hover{border-bottom-color:var(--blue-bright); color:var(--white);}
+  .toc-num{font-weight:800; color:var(--blue-bright); font-size:13px; min-width:20px;}
+
+  /* ===== Main ===== */
+  main{max-width:900px; margin:0 auto; padding:0 32px 100px;}
+  section{margin-top:56px; scroll-margin-top:24px;}
+  section > .sec-head{display:flex; align-items:center; gap:14px; margin-bottom:18px;}
+  .sec-badge{
+    flex:0 0 auto; width:40px; height:40px; border-radius:10px;
+    background:linear-gradient(160deg, var(--blue-bright), var(--blue-deep));
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:15px;
+  }
+  h2.sec-title{font-size:24px; font-weight:800; margin:0; color:var(--white);}
+  h3{font-size:19px; font-weight:700; margin:30px 0 10px; color:var(--white); padding-right:12px; border-right:3px solid var(--blue-bright);}
+  h4{font-size:16px; font-weight:700; margin:22px 0 8px; color:var(--blue-bright);}
+  p{margin:0 0 14px; color:var(--silver);}
+  ul, ol{margin:0 0 16px; padding-right:22px; color:var(--silver);}
+  li{margin-bottom:8px;}
+  li strong{color:var(--white);}
+
+  .callout{
+    background:var(--bg-panel); border:1px solid var(--rule); border-right:4px solid var(--blue-bright);
+    border-radius:10px; padding:18px 20px; margin:18px 0; color:var(--silver);
+  }
+  .callout.warn{border-right-color:var(--urgent);}
+  .callout strong{color:var(--white);}
+
+  table{
+    width:100%; border-collapse:collapse; margin:16px 0 26px;
+    background:var(--bg-panel); border-radius:10px; overflow:hidden;
+    font-size:14.5px; border:1px solid var(--rule);
+  }
+  th, td{padding:11px 14px; text-align:right; border-bottom:1px solid var(--rule); vertical-align:top; color:var(--silver);}
+  th{background:var(--blue-deep); color:var(--white); font-weight:700; font-size:13.5px;}
+  tr:last-child td{border-bottom:none;}
+  tr:nth-child(even) td{background:var(--bg-panel-2);}
+  td strong{color:var(--white);}
+
+  .tag{
+    display:inline-block; padding:2px 10px; border-radius:100px;
+    font-size:12px; font-weight:700; color:#0D1319; white-space:nowrap;
+  }
+  .tag.urgent{background:var(--urgent); color:#fff;}
+  .tag.soon{background:var(--soon);}
+  .tag.later{background:var(--later); color:#fff;}
+  .tag.must{background:var(--silver); color:#0D1319;}
+  .tag.rec{background:transparent; border:1px solid var(--silver-dim); color:var(--silver);}
+
+  .num{font-weight:700; color:var(--white);}
+
+  hr.div{border:none; border-top:1px solid var(--rule); margin:44px 0;}
+
+  code{
+    font-family:'Vazirmatn',sans-serif; background:var(--bg-panel-2); border:1px solid var(--rule);
+    padding:2px 6px; border-radius:5px; font-size:14px; direction:ltr; display:inline-block; color:var(--blue-bright);
+  }
+
+  .totalbox{
+    background:linear-gradient(160deg, var(--blue-deep), #14202B);
+    border:1px solid rgba(91,155,217,0.3);
+    border-radius:14px; padding:24px 26px; margin:22px 0;
+  }
+  .totalbox .label{font-size:13px; color:var(--silver); font-weight:600; margin-bottom:8px;}
+  .totalbox .amount{font-size:30px; font-weight:900; color:var(--white);}
+  .totalbox .note{font-size:13.5px; color:var(--silver-dim); margin-top:8px;}
+
+  footer{
+    max-width:900px; margin:0 auto; padding:40px 32px 80px;
+    color:var(--silver-dim); font-size:13.5px; border-top:1px solid var(--rule);
+  }
+
+  @media (max-width:640px){
+    h1.title{font-size:30px;}
+    .cover{padding:44px 20px 34px;}
+    main, .toc, footer{padding-left:18px; padding-right:18px;}
+    table{font-size:13px;}
+    th, td{padding:8px 10px;}
+  }
+  @media print{
+    body{background:#fff; color:#111;}
+    .cover::after{display:none;}
+    section{page-break-inside:avoid;}
+    table{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-inner">
+    <span class="eyebrow">بسیج منابع &nbsp;·&nbsp; مسیر رسیدن به MVP</span>
+    <h1 class="title">گزارش بسیج منابع سکه</h1>
+    <p class="subtitle">چه چیزی نیاز داریم، چه کسی نیاز داریم، و برآورد هزینه‌ی پایه تا راه‌اندازی نسخه‌ی حداقلی قابل‌عرضه</p>
+    <div class="meta-grid">
+      <div class="meta-item"><div class="k">تاریخ</div><div class="v ltr">ژوئیه ۲۰۲۶</div></div>
+      <div class="meta-item"><div class="k">نسخه</div><div class="v ltr">0.1</div></div>
+      <div class="meta-item"><div class="k">افق زمانی</div><div class="v">۶ ماه تا راه‌اندازی پایلوت</div></div>
+      <div class="meta-item"><div class="k">دامنه</div><div class="v">فناوری، مجوزها، مالکیت فکری، نیروی انسانی، هزینه</div></div>
+    </div>
+  </div>
+</div>
+
+<nav class="toc">
+  <h2>فهرست مطالب</h2>
+  <div class="toc-grid">
+    <a href="#s1"><span class="toc-num">۰۱</span> خلاصه‌ی مدیریتی</a>
+    <a href="#s2"><span class="toc-num">۰۲</span> فناوری‌ها و زیرساخت فنی</a>
+    <a href="#s3"><span class="toc-num">۰۳</span> مجوزها، تأییدیه‌ها و انطباق</a>
+    <a href="#s4"><span class="toc-num">۰۴</span> مالکیت فکری و لایسنس‌ها</a>
+    <a href="#s5"><span class="toc-num">۰۵</span> نیروی انسانی</a>
+    <a href="#s6"><span class="toc-num">۰۶</span> برآورد هزینه تا MVP</a>
+    <a href="#s7"><span class="toc-num">۰۷</span> جدول زمانی بسیج منابع</a>
+    <a href="#s8"><span class="toc-num">۰۸</span> جمع‌بندی و ریسک‌های برنامه‌ریزی</a>
+  </div>
+</nav>
+
+<main>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-badge">۰۱</div><h2 class="sec-title">خلاصه‌ی مدیریتی</h2></div>
+  <p>این گزارش، نقشه‌ی بسیج منابع برای رساندن سکه از وضعیت فعلی (پیش‌بذر) به راه‌اندازی نسخه‌ی حداقلی قابل‌عرضه (MVP) را ترسیم می‌کند: طرح آزمایشی شش‌ماهه با حداکثر ۵۰۰ کاربر، مطابق با الزامات MVP موجود. سه پرسش اصلی پاسخ داده می‌شود:</p>
+  <ul>
+    <li><strong>چه چیزی نیاز داریم</strong> — فناوری‌ها و زیرساخت فنی، مجوزها و تأییدیه‌های مقرراتی، و ملاحظات مالکیت فکری.</li>
+    <li><strong>چه کسی نیاز داریم</strong> — ترکیب تیم، تخصص‌ها و مهارت‌های لازم.</li>
+    <li><strong>چقدر هزینه دارد</strong> — برآورد بودجه‌ی پایه برای رسیدن به راه‌اندازی پایلوت.</li>
+  </ul>
+  <div class="callout warn">
+    <strong>نکته‌ی مهم درباره‌ی ارقام:</strong> با توجه به نوسان شدید نرخ ارز ریال و ناهماهنگی و غیرقابل‌اتکابودن داده‌های عمومی درباره‌ی حقوق فناوری در ایران (منابعی مانند Glassdoor و PayScale برای شغل‌های مشابه ارقام متناقض و گاه به‌وضوح نادرست نشان می‌دهند)، تمام ارقام هزینه در این گزارش به‌صورت <strong>بازه‌های برنامه‌ریزی معادل دلار آمریکا</strong> ارائه شده‌اند، نه نقل‌قول قطعی یا مبتنی بر منبع مستند. توصیه‌ی صریح این گزارش آن است که پیش از نهایی‌سازی بودجه، این ارقام با مشاوران منابع انسانی و حسابداری محلی راستی‌آزمایی شوند.
+  </div>
+</section>
+
+<hr class="div">
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-badge">۰۲</div><h2 class="sec-title">فناوری‌ها و زیرساخت فنی</h2></div>
+  <p>فهرست زیر بر اساس معماری موجود سکه (Flutter برای موبایل، Go برای بک‌اند، PostgreSQL برای پایگاه‌داده) و کنترل‌های کاهش ریسک تعریف‌شده در گزارش تحلیل ریسک تنظیم شده است.</p>
+
+  <h3>موبایل (کلاینت کاربر)</h3>
+  <table>
+    <tr><th>مؤلفه</th><th>فناوری پیشنهادی</th><th>هدف</th></tr>
+    <tr><td>چارچوب اپلیکیشن</td><td class="ltr">Flutter (Dart)</td><td>پشتیبانی اندروید ۹ به بالا با یک پایه‌ی کد مشترک</td></tr>
+    <tr><td>ذخیره‌سازی محلی امن</td><td class="ltr">SQLCipher / Tink</td><td>ذخیره‌ی رمزنگاری‌شده‌ی کلید و توکن روی دستگاه‌های بدون secure element تضمینی</td></tr>
+    <tr><td>رمزنگاری کلاینت</td><td class="ltr">Ed25519 / secp256r1</td><td>امضای تراکنش و برچسب‌گذاری پرش با هزینه‌ی محاسباتی کم</td></tr>
+    <tr><td>کد و اسکن QR</td><td class="ltr">qr_flutter / mobile_scanner</td><td>تبادل آفلاین توکن</td></tr>
+    <tr><td>کدگذاری بار داده</td><td class="ltr">Protobuf / CBOR</td><td>بار داده‌ی فشرده و غیرقابل‌خواندن ساده برای کد QR</td></tr>
+    <tr><td>فیلتر محلی ابطال</td><td>پیاده‌سازی سفارشی بلوم/کاکو (سبک)</td><td>بررسی محلی سریع پیش از پذیرش توکن</td></tr>
+    <tr><td>اعلان‌ها</td><td>سرویس Push داخلی ایرانی (مانند Pushe)</td><td>یادآوری مهلت بازبینی و انجماد</td></tr>
+  </table>
+
+  <h3>بک‌اند صادرکننده</h3>
+  <table>
+    <tr><th>مؤلفه</th><th>فناوری پیشنهادی</th><th>هدف</th></tr>
+    <tr><td>زبان و چارچوب سرویس</td><td class="ltr">Go + Gin/Fiber</td><td>کارایی و سادگی استقرار در زیرساخت ایران</td></tr>
+    <tr><td>ارتباط سرویس‌به‌سرویس</td><td class="ltr">gRPC / REST (JSON)</td><td>ارتباط داخلی و API عمومی</td></tr>
+    <tr><td>لایه‌ی داده</td><td class="ltr">GORM یا sqlx</td><td>دسترسی به PostgreSQL</td></tr>
+    <tr><td>پایگاه‌داده‌ی اصلی</td><td class="ltr">PostgreSQL</td><td>دفتر کل توکن‌ها، کاربران، کیف‌پول‌ها، تراکنش‌ها</td></tr>
+    <tr><td>حافظه‌ی نهان</td><td class="ltr">Redis</td><td>فهرست ابطال، نشست‌های فعال، محدودسازی نرخ</td></tr>
+    <tr><td>رمزنگاری کلید صادرکننده</td><td>کتابخانه‌ی امضای آستانه‌ای (مانند threshold-ECDSA/FROST)</td><td>صدور کلید دوبخشی و امضای آستانه‌ای</td></tr>
+    <tr><td>پنل مدیریت</td><td class="ltr">Templ/HTMX یا React سبک</td><td>تأیید KYC، تأیید واریز نقدی، بازبینی تقلب</td></tr>
+    <tr><td>گزارش رخداد</td><td>پیاده‌سازی سفارشی لاگ زنجیره‌شده با هش</td><td>ثبت غیرقابل‌دستکاری اقدامات مدیریتی</td></tr>
+  </table>
+
+  <h3>زیرساخت و عملیات</h3>
+  <table>
+    <tr><th>مؤلفه</th><th>فناوری پیشنهادی</th><th>هدف</th></tr>
+    <tr><td>میزبانی</td><td>مرکز داده‌ی ایرانی (آفرانت / آسیاتک / همراه‌اول و مشابه)</td><td>الزام اقامتگاه داده</td></tr>
+    <tr><td>بسته‌بندی و استقرار</td><td class="ltr">Docker + Docker Compose</td><td>استقرار ساده در MVP؛ مسیر مهاجرت به Kubernetes در آینده</td></tr>
+    <tr><td>پایش</td><td class="ltr">Prometheus + Grafana</td><td>پایش سلامت سرویس و نرخ بازبینی/پرچم‌گذاری سکه‌ی داغ</td></tr>
+    <tr><td>یکپارچه‌سازی/تحویل مداوم</td><td class="ltr">GitLab CI یا GitHub Actions</td><td>خودکارسازی آزمون و استقرار</td></tr>
+    <tr><td>کنترل نسخه</td><td class="ltr">Git</td><td>—</td></tr>
+    <tr><td>آزمون بار و شبیه‌سازی آفلاین</td><td>ابزار داخلی سفارشی</td><td>آزمون سناریوهای تأخیر شبکه ۵ تا ۲۴۰ ثانیه و رفتار انشعاب</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>یادداشت سازگاری دستگاه:</strong> با توجه به هدف پشتیبانی از اندروید ۹ به بالا بدون فرض وجود ماژول امنیتی سخت‌افزاری، طرح‌های رمزنگاری مبتنی بر جفت‌سازی (مانند تجمیع BLS یا اثبات‌های دانش‌صفر) از دامنه‌ی MVP خارج می‌مانند؛ عملیات استاندارد EdDSA/ECDSA در تمام موارد بالا کفایت می‌کند.
+  </div>
+</section>
+
+<hr class="div">
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-badge">۰۳</div><h2 class="sec-title">مجوزها، تأییدیه‌ها و انطباق</h2></div>
+  <table>
+    <tr><th>مجوز / تأییدیه</th><th>نهاد مرتبط</th><th>ضرورت</th><th>یادداشت</th></tr>
+    <tr><td>پذیرش در سندباکس فناوری مالی</td><td>بانک مرکزی جمهوری اسلامی ایران</td><td><span class="tag must">الزامی</span></td><td>پیش‌نیاز فعالیت قانونی به‌عنوان صادرکننده‌ی سکه</td></tr>
+    <tr><td>ثبت رسمی شرکت و تطبیق مجوز فعالیت با فین‌تک</td><td>سازمان ثبت شرکت‌ها</td><td><span class="tag must">الزامی</span></td><td>فرض بر انجام‌شدن ثبت اولیه است؛ باید موضوع فعالیت با خدمات پرداخت/صدور توکن تطبیق داده شود</td></tr>
+    <tr><td>قرارداد دسترسی به سامانه شاهکار</td><td>تنظیم‌گر مخابرات / اپراتورها</td><td><span class="tag must">الزامی</span></td><td>برای احراز هویت پایه‌ی کیف‌پول‌های استاندارد</td></tr>
+    <tr><td>قرارداد با شبکه‌ی شتاب/شاپرک یا یک PSP واسط</td><td>شرکت شاپرک / بانک عامل</td><td><span class="tag must">الزامی</span></td><td>برای واریز و برداشت نقدی، حتی در نسخه‌ی دستی MVP</td></tr>
+    <tr><td>ثبت‌نام نزد نهاد ناظر بر مبارزه با پولشویی</td><td>دبیرخانه شورای عالی مبارزه با پولشویی</td><td><span class="tag must">الزامی</span></td><td>با توجه به ماهیت مالی و بار ارزشی سکه</td></tr>
+    <tr><td>مجوز ارسال پیامک انبوه/OTP</td><td>تنظیم‌گر مخابرات</td><td><span class="tag rec">مشروط</span></td><td>تنها در صورت استفاده از پیامک؛ می‌توان با اعلان درون‌برنامه‌ای جایگزین کرد</td></tr>
+    <tr><td>ثبت و توزیع در بازارهای اپلیکیشن داخلی</td><td>کافه‌بازار، مایکت</td><td><span class="tag rec">توصیه‌شده</span></td><td>کاهش وابستگی به Google Play با توجه به ریسک اختلال دسترسی</td></tr>
+    <tr><td>انطباق با قانون حمایت از داده‌های شخصی</td><td>—</td><td><span class="tag must">الزامی</span></td><td>اقامتگاه داده و رویه‌های حریم خصوصی، مطابق بخش حریم خصوصی گزارش ریسک</td></tr>
+    <tr><td>بیمه/تضمین حرفه‌ای برای عملیات مالی (در صورت وجود الزام)</td><td>بیمه مرکزی / نهاد ناظر</td><td><span class="tag rec">مشروط</span></td><td>به سیاست نهایی سندباکس بستگی دارد؛ باید در تعامل با بانک مرکزی روشن شود</td></tr>
+  </table>
+  <div class="callout">
+    توصیه می‌شود مسیر «پذیرش در سندباکس» را در همان ماه اول کار آغاز کنید، چون معمولاً کندترین حلقه در زنجیره‌ی بسیج منابع است و بسیاری از فعالیت‌های دیگر (قرارداد شتاب، ثبت‌نام AML) عملاً به آن وابسته‌اند.
+  </div>
+</section>
+
+<hr class="div">
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-badge">۰۴</div><h2 class="sec-title">مالکیت فکری و لایسنس‌ها</h2></div>
+
+  <h4>علامت تجاری</h4>
+  <p>ثبت زودهنگام علامت تجاری «سکه» نزد اداره‌ی ثبت اختراعات، طرح‌های صنعتی و علائم تجاری توصیه می‌شود. هزینه و زمان این کار نسبتاً کم است و از برند در برابر استفاده‌ی موازی توسط رقبا محافظت می‌کند، مستقل از سرنوشت مجوز فین‌تک.</p>
+
+  <h4>پتنت بر پروتکل رمزنگاری</h4>
+  <p>برای مکانیزم‌های نوآورانه‌ی داخلی سکه (مانند اثبات رمزنگارانه‌ی تناقض و برچسب‌گذاری تعداد پرش)، توصیه‌ی این گزارش <strong>عدم پیگیری ثبت پتنت رسمی در این مرحله</strong> است: هزینه و زمان لازم برای ثبت (به‌ویژه در سطح بین‌المللی) نسبت به منافع آن برای یک تیم پیش‌بذر توجیه‌پذیر نیست. جایگزین کم‌هزینه‌تر: مستندسازی داخلی دقیق و درج تاریخ (برای حفظ شواهد اولویت در صورت نیاز آینده)، و در صورت تمایل، انتشار یک «انتشار دفاعی» کوتاه که مانع ثبت پتنت مشابه توسط دیگران می‌شود بدون هزینه‌ی ثبت رسمی.</p>
+
+  <h4>لایسنس‌های متن‌باز</h4>
+  <p>پیش از انتشار عمومی، تمام کتابخانه‌های شخص ثالث مورداستفاده در بک‌اند (Go modules) و اپلیکیشن موبایل (پکیج‌های Flutter/Dart) باید از نظر سازگاری لایسنس بررسی شوند — به‌ویژه پرهیز از لایسنس‌های copyleft قوی مانند AGPL در بخش‌های اختصاصی کد که ممکن است الزام به انتشار کد منبع را ایجاد کند.</p>
+
+  <h4>قراردادهای آینده تحت SIIP</h4>
+  <p>در صورت گسترش به پروتکل میان‌صادرکننده در آینده، قراردادهای مجوز استفاده از نام تجاری/پروتکل با سایر صادرکنندگان (بانک‌ها/فین‌تک‌های دیگر) باید از هم‌اکنون به‌عنوان یک آیتم برنامه‌ریزی حقوقی بلندمدت در نظر گرفته شود، نه یک نیاز فوری MVP.</p>
+</section>
+
+<hr class="div">
+
+<section id="s5">
+  <div class="sec-head"><div class="sec-badge">۰۵</div><h2 class="sec-title">نیروی انسانی: چه کسی نیاز داریم</h2></div>
+  <p>ترکیب زیر یک تیم کوچک و متمرکز برای رساندن پایلوت ۵۰۰ کاربری به راه‌اندازی را نشان می‌دهد. برچسب‌های زمانی، اولویت استخدام را نشان می‌دهند: <span class="tag urgent">فوری</span> از روز اول، <span class="tag soon">ماه ۲ تا ۳</span> پیش از توسعه‌ی اصلی، <span class="tag later">ماه ۴ به بعد</span> پیش از شروع پایلوت واقعی.</p>
+
+  <table>
+    <tr><th>نقش</th><th>تعداد</th><th>مهارت‌های کلیدی</th><th>زمان‌بندی</th></tr>
+    <tr><td><strong>مدیر فنی / CTO</strong></td><td class="ltr">1</td><td>معماری سیستم، تصمیم‌گیری فنی، رهبری تیم</td><td><span class="tag urgent">فوری</span></td></tr>
+    <tr><td><strong>توسعه‌دهنده بک‌اند (Go)</strong></td><td class="ltr">2</td><td>Go، PostgreSQL، طراحی API، سیستم‌های توزیع‌شده‌ی پایه</td><td><span class="tag urgent">فوری</span></td></tr>
+    <tr><td><strong>توسعه‌دهنده موبایل (Flutter)</strong></td><td class="ltr">1</td><td>Dart/Flutter، ذخیره‌سازی امن محلی، تجربه‌ی آفلاین-اول</td><td><span class="tag urgent">فوری</span></td></tr>
+    <tr><td><strong>مهندس امنیت/رمزنگاری</strong></td><td class="ltr">1</td><td>امضای دیجیتال (EdDSA/ECDSA)، امضای آستانه‌ای، طراحی پروتکل ضدتقلب</td><td><span class="tag urgent">فوری</span></td></tr>
+    <tr><td><strong>مهندس DevOps/زیرساخت</strong></td><td class="ltr">1 (پاره‌وقت)</td><td>Docker، مانیتورینگ، امنیت زیرساخت میزبانی ایرانی</td><td><span class="tag soon">ماه ۲</span></td></tr>
+    <tr><td><strong>مهندس آزمون/QA</strong></td><td class="ltr">1</td><td>آزمون سناریوهای آفلاین/تأخیر شبکه، آزمون رگرسیون موتور تطبیق</td><td><span class="tag soon">ماه ۲</span></td></tr>
+    <tr><td><strong>طراح UI/UX</strong></td><td class="ltr">1 (قراردادی)</td><td>طراحی برای کاربران غیرفنی (فروشندگان بازار، رانندگان تاکسی)</td><td><span class="tag soon">ماه ۱ تا ۳</span></td></tr>
+    <tr><td><strong>مدیر محصول</strong></td><td class="ltr">1</td><td>اولویت‌بندی، ارتباط با ذی‌نفعان، تدوین الزامات</td><td><span class="tag urgent">فوری</span></td></tr>
+    <tr><td><strong>مشاور حقوقی/انطباق</strong></td><td class="ltr">1 (پاره‌وقت/retainer)</td><td>مقررات بانک مرکزی، AML/KYC، حریم خصوصی داده</td><td><span class="tag urgent">فوری</span></td></tr>
+    <tr><td><strong>تحلیل‌گر عملیات/KYC</strong></td><td class="ltr">1 تا ۲</td><td>بازبینی مدارک هویتی، تأیید واریز نقدی، بازبینی تقلب روزانه</td><td><span class="tag later">ماه ۴</span></td></tr>
+    <tr><td><strong>هماهنگ‌کننده‌ی پایلوت</strong></td><td class="ltr">1</td><td>ارتباط با فروشندگان بازار/رانندگان تاکسی، جمع‌آوری بازخورد میدانی</td><td><span class="tag later">ماه ۴</span></td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>ممیزی امنیتی خارجی</strong> (بخش ۶) یک استخدام نیست، بلکه یک قرارداد کوتاه‌مدت با یک شرکت یا فرد متخصص مستقل برای بازبینی رمزنگاری و آزمون نفوذ پیش از راه‌اندازی پایلوت است — بهتر است مستقل از تیم داخلی باشد تا نتیجه‌ی آن بی‌طرفانه بماند.
+  </div>
+</section>
+
+<hr class="div">
+
+<section id="s6">
+  <div class="sec-head"><div class="sec-badge">۰۶</div><h2 class="sec-title">برآورد هزینه تا راه‌اندازی MVP</h2></div>
+  <p>ارقام زیر بازه‌های برنامه‌ریزی معادل دلار آمریکا برای یک افق شش‌ماهه هستند (طبق یادداشت بخش ۱، نه نقل‌قول قطعی).</p>
+
+  <h3>الف) نیروی انسانی (۶ ماه)</h3>
+  <table>
+    <tr><th>نقش</th><th>نرخ ماهانه (هر نفر)</th><th>مدت</th><th>جمع بازه</th></tr>
+    <tr><td>مدیر فنی / CTO</td><td class="ltr">$1,500–2,500</td><td class="ltr">6 ماه</td><td class="ltr">$9,000–15,000</td></tr>
+    <tr><td>توسعه‌دهنده بک‌اند (۲ نفر)</td><td class="ltr">$800–1,500</td><td class="ltr">6 ماه</td><td class="ltr">$9,600–18,000</td></tr>
+    <tr><td>توسعه‌دهنده موبایل</td><td class="ltr">$700–1,400</td><td class="ltr">6 ماه</td><td class="ltr">$4,200–8,400</td></tr>
+    <tr><td>مهندس امنیت/رمزنگاری</td><td class="ltr">$1,200–2,200</td><td class="ltr">6 ماه</td><td class="ltr">$7,200–13,200</td></tr>
+    <tr><td>DevOps (پاره‌وقت)</td><td class="ltr">$500–1,000</td><td class="ltr">6 ماه</td><td class="ltr">$3,000–6,000</td></tr>
+    <tr><td>QA/آزمون</td><td class="ltr">$500–1,000</td><td class="ltr">6 ماه</td><td class="ltr">$3,000–6,000</td></tr>
+    <tr><td>طراح UI/UX (قراردادی)</td><td class="ltr">$400–800</td><td class="ltr">3 ماه</td><td class="ltr">$1,200–2,400</td></tr>
+    <tr><td>مدیر محصول</td><td class="ltr">$1,000–2,000</td><td class="ltr">6 ماه</td><td class="ltr">$6,000–12,000</td></tr>
+    <tr><td>مشاور حقوقی/انطباق</td><td class="ltr">$500–1,200</td><td class="ltr">6 ماه</td><td class="ltr">$3,000–7,200</td></tr>
+    <tr><td>تحلیل‌گر عملیات/KYC</td><td class="ltr">$400–700</td><td class="ltr">3 ماه</td><td class="ltr">$1,200–2,100</td></tr>
+    <tr><td>هماهنگ‌کننده‌ی پایلوت</td><td class="ltr">$400–700</td><td class="ltr">3 ماه</td><td class="ltr">$1,200–2,100</td></tr>
+    <tr><td colspan="3"><strong>جمع نیروی انسانی</strong></td><td class="ltr"><strong>$48,600–92,400</strong></td></tr>
+  </table>
+
+  <h3>ب) زیرساخت، خدمات شخص ثالث و موارد یک‌باره</h3>
+  <table>
+    <tr><th>مورد</th><th>بازه‌ی هزینه</th><th>نوع</th></tr>
+    <tr><td>میزبانی و پایگاه‌داده (۶ ماه)</td><td class="ltr">$900–2,400</td><td>مستمر</td></tr>
+    <tr><td>پشتیبان‌گیری و ذخیره‌سازی (۶ ماه)</td><td class="ltr">$300–900</td><td>مستمر</td></tr>
+    <tr><td>سرویس اعلان/پیامک (۶ ماه)</td><td class="ltr">$200–900</td><td>مستمر</td></tr>
+    <tr><td>دامنه، گواهی SSL و متفرقه</td><td class="ltr">$100–300</td><td>یک‌باره</td></tr>
+    <tr><td>دستگاه‌های آزمون (اندروید ۹+، ۸ تا ۱۰ دستگاه)</td><td class="ltr">$400–800</td><td>یک‌باره</td></tr>
+    <tr><td>هزینه‌های دسترسی شاهکار (برآوردی، منوط به تعرفه)</td><td class="ltr">$500–2,000</td><td>مستمر/راه‌اندازی</td></tr>
+    <tr><td>راه‌اندازی قرارداد شتاب/PSP</td><td class="ltr">$200–500</td><td>یک‌باره</td></tr>
+    <tr><td colspan="2"><strong>جمع این بخش</strong></td><td class="ltr"><strong>$2,600–7,800</strong></td></tr>
+  </table>
+
+  <h3>ج) ممیزی امنیتی، حقوقی و صندوق تضمین</h3>
+  <table>
+    <tr><th>مورد</th><th>بازه‌ی هزینه</th><th>نوع</th></tr>
+    <tr><td>ممیزی امنیتی/رمزنگاری خارجی پیش از راه‌اندازی</td><td class="ltr">$3,000–8,000</td><td>یک‌باره</td></tr>
+    <tr><td>ثبت‌نام سندباکس، مشاوره‌ی حقوقی راه‌اندازی</td><td class="ltr">$1,000–3,000</td><td>یک‌باره</td></tr>
+    <tr><td>ثبت علامت تجاری</td><td class="ltr">$200–600</td><td>یک‌باره</td></tr>
+    <tr><td>سرمایه‌ی اولیه‌ی صندوق تضمین (مقیاس پایلوت)</td><td class="ltr">$2,000–5,000</td><td>ذخیره</td></tr>
+    <tr><td colspan="2"><strong>جمع این بخش</strong></td><td class="ltr"><strong>$6,200–16,600</strong></td></tr>
+  </table>
+  <p style="font-size:13.5px; color:var(--silver-dim);">سرمایه‌ی صندوق تضمین بر اساس مدل قرارگیری بهبودیافته در گزارش تحلیل ریسک محاسبه شده: در مقیاس ۵۰۰ کاربر پایلوت، بدترین‌حالت قرارگیری تقلب چند ده دلار است؛ رقم بالا صرفاً یک ذخیره‌ی احتیاطی راحت است، نه بازتاب یک ریسک واقعی بزرگ در این مقیاس.</p>
+
+  <div class="totalbox">
+    <div class="label">جمع کل تخمینی (نیروی انسانی + زیرساخت + ممیزی/حقوقی/ذخیره، پیش از احتساب ذخیره‌ی احتیاطی)</div>
+    <div class="amount ltr">$57,400 – $116,800</div>
+    <div class="note">به‌علاوه‌ی ۱۵٪ ذخیره‌ی احتیاطی برای هزینه‌های پیش‌بینی‌نشده: <span class="ltr" style="color:var(--white); font-weight:700;">$8,600 – $17,500</span></div>
+  </div>
+
+  <div class="totalbox">
+    <div class="label">جمع کل نهایی تخمینی برای رسیدن به راه‌اندازی MVP (۶ ماه)</div>
+    <div class="amount ltr">≈ $66,000 – $134,000</div>
+    <div class="note">بازه‌ی برنامه‌ریزی معادل دلار آمریکا؛ تبدیل به ریال باید نزدیک به زمان مصرف واقعی بودجه انجام شود، نه در ابتدای دوره، با توجه به نوسان نرخ ارز.</div>
+  </div>
+</section>
+
+<hr class="div">
+
+<section id="s7">
+  <div class="sec-head"><div class="sec-badge">۰۷</div><h2 class="sec-title">جدول زمانی بسیج منابع</h2></div>
+  <table>
+    <tr><th>ماه</th><th>فعالیت‌های کلیدی</th></tr>
+    <tr><td class="ltr">۱</td><td>استخدام هسته‌ی فنی (CTO، بک‌اند×۲، موبایل، امنیت)؛ آغاز درخواست پذیرش سندباکس بانک مرکزی؛ شروع طراحی UI/UX</td></tr>
+    <tr><td class="ltr">۲</td><td>راه‌اندازی زیرساخت پایه (Docker، PostgreSQL، Redis، پایش)؛ استخدام DevOps و QA؛ آغاز مذاکره با شاپرک/PSP و شاهکار</td></tr>
+    <tr><td class="ltr">۳</td><td>توسعه‌ی هسته‌ی پروتکل (سقف در-گردش، برچسب‌گذاری پرش، اثبات تناقض، فیلتر ابطال)؛ تکمیل UI/UX؛ ثبت علامت تجاری</td></tr>
+    <tr><td class="ltr">۴</td><td>استخدام تحلیل‌گر KYC و هماهنگ‌کننده‌ی پایلوت؛ آزمون داخلی و شبیه‌سازی سناریوهای تأخیر شبکه؛ آماده‌سازی پنل مدیریت</td></tr>
+    <tr><td class="ltr">۵</td><td>ممیزی امنیتی/رمزنگاری خارجی؛ رفع یافته‌ها؛ آزمون با گروه کوچک کاربران داخلی (dogfooding)</td></tr>
+    <tr><td class="ltr">۶</td><td>راه‌اندازی پایلوت با تا ۵۰۰ کاربر؛ پایش زنده‌ی نرخ بازبینی و پرچم‌گذاری سکه‌ی داغ برای اعتبارسنجی پارامتر <span class="ltr">k′</span></td></tr>
+  </table>
+</section>
+
+<hr class="div">
+
+<section id="s8">
+  <div class="sec-head"><div class="sec-badge">۰۸</div><h2 class="sec-title">جمع‌بندی و ریسک‌های برنامه‌ریزی</h2></div>
+  <p>سه نکته پیش از نهایی‌سازی این نقشه ارزش تأکید دارند:</p>
+  <ul>
+    <li><strong>مسیر مقرراتی، نه مسیر فنی، محتمل‌ترین گلوگاه زمانی است.</strong> پذیرش در سندباکس بانک مرکزی و قرارداد با شتاب/شاپرک می‌توانند بسته به سرعت پاسخ نهادهای نظارتی، جدول زمانی ماه ۱ تا ۷ را کش دهند؛ توصیه می‌شود این مسیرها با بیشترین حاشیه‌ی زمانی برنامه‌ریزی شوند.</li>
+    <li><strong>وابستگی به افراد کلیدی</strong> در این مقیاس تیم اجتناب‌ناپذیر است — به‌ویژه نقش مهندس امنیت/رمزنگاری که هسته‌ی کنترل‌های ضدتقلب گزارش ریسک را پیاده‌سازی می‌کند. توصیه می‌شود مستندسازی داخلی دقیق از روز اول انجام شود تا وابستگی به یک فرد واحد کاهش یابد.</li>
+    <li><strong>ارقام هزینه، بازه‌های برنامه‌ریزی هستند، نه تعهد قطعی.</strong> پس از استخدام سه تا چهار نفر اول و دریافت پیشنهاد قیمت واقعی از ارائه‌دهندگان میزبانی و حسابرسی امنیتی، توصیه می‌شود این گزارش با ارقام واقعی به‌روزرسانی شود.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  <p>گزارش بسیج منابع سکه — نسخه‌ی ۰.۱ — <span class="ltr">July 2026</span>. این سند برای برنامه‌ریزی داخلی تهیه شده و ارقام آن بازه‌های برآوردی هستند، نه پیش‌بینی قطعی یا نقل‌قول تعهدآور.</p>
+</footer>
+
+</body>
+</html>
